@@ -34,11 +34,16 @@ describe("Line", function() {
       const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
       assert.isTrue(line1.isParallelTo(line2));
     });
-    it("should validate when given two lines are parallel", function() {
+    it("should not validate when given two lines are not parallel", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 3 });
       const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
       assert.isFalse(line1.isParallelTo(line2));
     });
+    // it.skip("should not validate when given two lines are overlapping", function() {
+    //   const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
+    //   const line2 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
+    //   assert.isFalse(line1.isParallelTo(line2));
+    // });
   });
   describe("slope", function() {
     it("should give the slope for the given line", function() {

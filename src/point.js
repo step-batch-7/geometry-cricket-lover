@@ -9,6 +9,12 @@ class Point {
   visit(functionReference) {
     return functionReference(this.x, this.y);
   }
+  isEqualTo(pointB) {
+    return (this.x = pointB.x && this.y == pointB.y);
+  }
+  clone() {
+    return new Point(this.x, this.y);
+  }
 }
 
 module.exports = Point;
