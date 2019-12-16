@@ -6,6 +6,9 @@ class Line {
   toString() {
     return `[Line (${this.pointA.x},${this.pointA.y}) to (${this.pointB.x},${this.pointB.y})]`;
   }
+  isEqualTo(pointB) {
+    return this.x == pointB.x && this.y == pointB.y;
+  }
 }
 
 module.exports = Line;
