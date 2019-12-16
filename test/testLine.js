@@ -13,14 +13,19 @@ describe("Line", function() {
     it("should validate when given two lines are equal", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
-      //const expected = true;
       assert.isTrue(line1.isEqualTo(line2));
     });
     it("should not validate when given two lines are not equal", function() {
       const line1 = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
-      //const expected = true;
-      assert.isTrue(line1.isEqualTo(line2));
+      assert.isFalse(line1.isEqualTo(line2));
+    });
+  });
+  describe("length", function() {
+    it("should give the length of the line with the given two points", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
+      const expected = Math.sqrt(5);
+      assert.strictEqual(line.length(), expected);
     });
   });
 });
