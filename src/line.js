@@ -17,11 +17,17 @@ class Line {
     );
   }
   length() {
-    const x1 = this.pointA.x;
-    const x2 = this.pointB.x;
-    const y1 = this.pointA.y;
-    const y2 = this.pointB.y;
-    return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    const differenceInX = this.pointB.x - this.pointA.x;
+    const differenceInY = this.pointB.y - this.pointA.y;
+    return Math.sqrt(
+      differenceInX * differenceInX + differenceInY * differenceInY
+    );
+  }
+  isParallelTo(other) {
+    return this.slope == other.slope;
+  }
+  get slope() {
+    return (this.pointB.y - this.pointA.y) / (this.pointB.x - this.pointA.x);
   }
 }
 

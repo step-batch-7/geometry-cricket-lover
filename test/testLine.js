@@ -28,4 +28,23 @@ describe("Line", function() {
       assert.strictEqual(line.length(), expected);
     });
   });
+  describe("isParallelTo", function() {
+    it("should validate when given two lines are parallel", function() {
+      const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
+      const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
+      assert.isTrue(line1.isParallelTo(line2));
+    });
+    it("should validate when given two lines are parallel", function() {
+      const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 3 });
+      const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
+      assert.isFalse(line1.isParallelTo(line2));
+    });
+  });
+  describe("slope", function() {
+    it("should give the slope for the given line", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
+      const expected = 2;
+      assert.strictEqual(line.slope, expected);
+    });
+  });
 });
