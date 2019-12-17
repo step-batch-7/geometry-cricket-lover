@@ -10,7 +10,8 @@ class Point {
     return functionReference(this.x, this.y);
   }
   isEqualTo(pointB) {
-    return (this.x = pointB.x && this.y == pointB.y);
+    if (!(pointB instanceof Point)) return false;
+    return this.x == pointB.x && this.y == pointB.y;
   }
   clone() {
     return new Point(this.x, this.y);

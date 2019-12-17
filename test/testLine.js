@@ -21,9 +21,9 @@ describe("Line", function() {
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       assert.isFalse(line1.isEqualTo(line2));
     });
-    it("should give false for two lines of different instances", function() {
+    it("should not validate for two lines of different instances", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
-      const line2 = { pointA: { x: 1, y: 2 }, pointB: { x: 3, y: 4 } };
+      const line2 = { endA: { x: 1, y: 2 }, endB: { x: 3, y: 4 } };
       assert.isFalse(line1.isEqualTo(line2));
     });
   });
@@ -45,10 +45,15 @@ describe("Line", function() {
     });
   });
   describe("isParallelTo", function() {
-    it("should validate when given two lines are parallel", function() {
+    it("should validate when given two lines are parallel of same instance", function() {
       const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
       const line2 = new Line({ x: 2, y: 1 }, { x: 6, y: 5 });
       assert.isTrue(line1.isParallelTo(line2));
+    });
+    it("should not validate when given two lines are parallel of different instance", function() {
+      const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
+      const line2 = { endA: { x: 1, y: 2 }, endB: { x: 3, y: 4 } };
+      assert.isFalse(line1.isParallelTo(line2));
     });
     it("should not validate when given two lines are not parallel", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 3 });
@@ -60,16 +65,46 @@ describe("Line", function() {
       const line2 = new Line({ x: 3, y: 3 }, { x: 6, y: 6 });
       assert.isFalse(line1.isParallelTo(line2));
     });
-    it("should not validate when given two lines are equal", function() {
+    it("should not validate when given two lines are overlapping", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 4, y: 10 });
       const line2 = new Line({ x: 1, y: 2 }, { x: 4, y: 10 });
       assert.isFalse(line1.isParallelTo(line2));
+    });
+    it("should not validate when given two lines are of different instances", function() {
+      const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
+      const line2 = { endA: { x: 1, y: 2 }, endB: { x: 3, y: 4 } };
+      assert.isFalse(line1.isEqualTo(line2));
     });
   });
   describe("slope", function() {
     it("should give the slope for the given line", function() {
       const line = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
       const expected = 2;
+      assert.strictEqual(line.slope, expected);
+    });
+    it("should give 0 for the same values of x", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 1, y: 3 });
+      const expected = Infinity;
+      assert.strictEqual(line.slope, expected);
+    });
+    it("should give 0 for the same values of y", function() {
+      const line = new Line({ x: 3, y: 1 }, { x: 1, y: 1 });
+      const expected = 0;
+      assert.strictEqual(line.slope, expected);
+    });
+    it("should give negative value when difference in y values is negative and in x values is positive", function() {
+      const line = new Line({ x: 3, y: 5 }, { x: 5, y: 1 });
+      const expected = -2;
+      assert.strictEqual(line.slope, expected);
+    });
+    it("should give positive value when both difference in y values and in x values are negative ", function() {
+      const line = new Line({ x: 3, y: 5 }, { x: 1, y: 1 });
+      const expected = 2;
+      assert.strictEqual(line.slope, expected);
+    });
+    it("should give negative value when difference in y values is positive and in x values is negative", function() {
+      const line = new Line({ x: 3, y: 1 }, { x: 1, y: 5 });
+      const expected = -2;
       assert.strictEqual(line.slope, expected);
     });
   });
@@ -97,9 +132,15 @@ describe("Line", function() {
       const actual = line.hasPoint(point);
       assert.isTrue(actual);
     });
-    it("should validate if the given point is present on the line", function() {
+    it("should not validate if the given point is not present on the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const point = new Point(1.5, 2);
+      const actual = line.hasPoint(point);
+      assert.isFalse(actual);
+    });
+    it("should not validate if the given point is of different instance", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const point = { x: 1.5, y: 2.5 };
       const actual = line.hasPoint(point);
       assert.isFalse(actual);
     });
@@ -128,14 +169,15 @@ describe("Line", function() {
   });
   describe("findPointFromStart", function() {
     it("should give a point on the line with a given distance from start", function() {
-      const line = new Line({ x: 1, y: 1 }, { x: 6, y: 1 });
-      const expected = new Point(3, 1);
-      const actual = line.findPointFromStart(2);
+      const line = new Line({ x: 1, y: 1 }, { x: 7, y: 1 });
+      const expected = new Point(4, 1);
+      const actual = line.findPointFromStart(3);
+
       assert.isOk(actual.isEqualTo(expected));
     });
-    it("should give a point on the line with a given distance from start", function() {
+    it("should give null for the point of different instance", function() {
       const line = new Line({ x: 1, y: 1 }, { x: 6, y: 1 });
-      const expected = NaN;
+      const expected = null;
       const actual = line.findPointFromStart(7);
       assert.deepStrictEqual(actual, expected);
     });
@@ -147,9 +189,9 @@ describe("Line", function() {
       const actual = line.findPointFromEnd(2);
       assert.isOk(actual.isEqualTo(expected));
     });
-    it("should give a point on the line with a given distance from end", function() {
+    it("should give null for the point of different instance", function() {
       const line = new Line({ x: 1, y: 1 }, { x: 5, y: 1 });
-      const expected = NaN;
+      const expected = null;
       const actual = line.findPointFromEnd(7);
       assert.deepStrictEqual(actual, expected);
     });
