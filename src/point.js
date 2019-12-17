@@ -18,6 +18,16 @@ class Point {
   isOn(line) {
     return line.hasPoint(this);
   }
+  findDistanceTo(point) {
+    if (!(point instanceof Point)) {
+      return NaN;
+    }
+    const differenceInX = this.x - point.x;
+    const differenceInY = this.y - point.y;
+    return Math.sqrt(
+      differenceInX * differenceInX + differenceInY * differenceInY
+    );
+  }
 }
 
 module.exports = Point;

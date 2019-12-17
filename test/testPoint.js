@@ -58,4 +58,17 @@ describe("Point", function() {
       assert.isFalse(point.isOn(line));
     });
   });
+  describe("findDistanceTo", function() {
+    it("should give the distance between the given two points", function() {
+      const point1 = new Point(1, 1);
+      const point2 = new Point(4, 1);
+      const expected = 3;
+      assert.strictEqual(point1.findDistanceTo(point2), expected);
+    });
+    it("should give the NaN when given point is not an instance of point class", function() {
+      const point1 = new Point(1, 1);
+      const point2 = { x: 4, y: 2 };
+      assert.isNaN(point1.findDistanceTo(point2));
+    });
+  });
 });

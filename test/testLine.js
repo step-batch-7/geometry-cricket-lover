@@ -87,8 +87,7 @@ describe("Line", function() {
     });
     it("should give the NaN for given y outside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
-      const expected = NaN;
-      assert.deepStrictEqual(line.findX(6), expected);
+      assert.isNaN(line.findX(6));
     });
   });
   describe("findY", function() {
@@ -99,8 +98,7 @@ describe("Line", function() {
     });
     it("should give the NaN for given x outside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
-      const expected = NaN;
-      assert.deepStrictEqual(line.findY(6), expected);
+      assert.isNaN(line.findY(6));
     });
   });
 });
