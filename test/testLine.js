@@ -32,7 +32,7 @@ describe("Line", function() {
   describe("isParallelTo", function() {
     it("should validate when given two lines are parallel", function() {
       const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
-      const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
+      const line2 = new Line({ x: 2, y: 2 }, { x: 6, y: 6 });
       assert.isTrue(line1.isParallelTo(line2));
     });
     it("should not validate when given two lines are not parallel", function() {
@@ -77,6 +77,20 @@ describe("Line", function() {
       const point = new Point(1.5, 2);
       const actual = line.hasPoint(point);
       assert.isFalse(actual);
+    });
+  });
+  describe("findX", function() {
+    it("should give the corresponding x for given y on the line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const expected = 1.5;
+      assert.strictEqual(line.findX(2.5), expected);
+    });
+  });
+  describe("findY", function() {
+    it("should give the corresponding y for given x on the line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const expected = 2.5;
+      assert.strictEqual(line.findY(1.5), expected);
     });
   });
 });

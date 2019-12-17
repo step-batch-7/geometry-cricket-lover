@@ -45,6 +45,12 @@ class Line {
     const line2 = new Line(point, this.pointB);
     return line1.length + line2.length == this.length;
   }
+  findX(y) {
+    return (y - this.pointA.y) / this.slope + this.pointA.x;
+  }
+  findY(x) {
+    return (x - this.pointA.x) * this.slope + this.pointA.y;
+  }
 }
 
 module.exports = Line;
