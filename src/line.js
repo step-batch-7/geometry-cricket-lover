@@ -46,10 +46,14 @@ class Line {
     return line1.length + line2.length == this.length;
   }
   findX(y) {
-    return (y - this.pointA.y) / this.slope + this.pointA.x;
+    const x = (y - this.pointA.y) / this.slope + this.pointA.x;
+    if (this.hasPoint(new Point(x, y))) return x;
+    return NaN;
   }
   findY(x) {
-    return (x - this.pointA.x) * this.slope + this.pointA.y;
+    const y = (x - this.pointA.x) * this.slope + this.pointA.y;
+    if (this.hasPoint(new Point(x, y))) return y;
+    return NaN;
   }
 }
 

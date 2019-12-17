@@ -80,10 +80,15 @@ describe("Line", function() {
     });
   });
   describe("findX", function() {
-    it("should give the corresponding x for given y on the line", function() {
+    it("should give the corresponding x for given y inside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const expected = 1.5;
       assert.strictEqual(line.findX(2.5), expected);
+    });
+    it("should give the NaN for given y outside the line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
+      const expected = NaN;
+      assert.deepStrictEqual(line.findX(6), expected);
     });
   });
   describe("findY", function() {
@@ -91,6 +96,11 @@ describe("Line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const expected = 2.5;
       assert.strictEqual(line.findY(1.5), expected);
+    });
+    it("should give the NaN for given x outside the line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
+      const expected = NaN;
+      assert.deepStrictEqual(line.findY(6), expected);
     });
   });
 });
