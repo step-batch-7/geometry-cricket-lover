@@ -39,6 +39,11 @@ describe("Point", function() {
       const point2 = new Point(2, 3);
       assert.isFalse(point1.isEqualTo(point2));
     });
+    it("should give false for equal points of different instance", function() {
+      const point1 = new Point(4, 5);
+      const point2 = { x: 4, y: 5 };
+      assert.isFalse(point1.isEqualTo(point2));
+    });
   });
   describe("clone", function() {
     it("should create a copy and give back the same point given to it", function() {
@@ -52,7 +57,7 @@ describe("Point", function() {
       const point = new Point(2, 3);
       assert.isTrue(point.isOn(line));
     });
-    it("should validate if the point is present on the given line", function() {
+    it("should not validate if the point is not present on the given line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const point = new Point(2, 4);
       assert.isFalse(point.isOn(line));
@@ -63,6 +68,12 @@ describe("Point", function() {
       const point1 = new Point(1, 1);
       const point2 = new Point(4, 1);
       const expected = 3;
+      assert.strictEqual(point1.findDistanceTo(point2), expected);
+    });
+    it("should give the distance between the given two points", function() {
+      const point1 = new Point(2, 3);
+      const point2 = new Point(2, 3);
+      const expected = 0;
       assert.strictEqual(point1.findDistanceTo(point2), expected);
     });
     it("should give the NaN when given point is not an instance of point class", function() {
