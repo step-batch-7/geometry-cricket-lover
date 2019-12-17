@@ -52,5 +52,10 @@ describe("Point", function() {
       const point = new Point(2, 3);
       assert.isTrue(point.isOn(line));
     });
+    it("should validate if the point is present on the given line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const point = new Point(2, 4);
+      assert.isFalse(point.isOn(line));
+    });
   });
 });
