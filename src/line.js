@@ -35,9 +35,6 @@ class Line {
   get slope() {
     return (this.pointB.y - this.pointA.y) / (this.pointB.x - this.pointA.x);
   }
-  findX(y) {
-    return;
-  }
   split() {
     const midPoint = getMidPoint(this.pointA, this.pointB);
     return [new Line(this.pointA, midPoint), new Line(midPoint, this.pointB)];
