@@ -1,11 +1,11 @@
 const Point = require("./point");
 
-const arePointsEqual = function(pointA, pointB) {
-  return pointA.x == pointB.x && pointA.y == pointB.y;
-};
+const arePointsCollinear = function(pointA, pointB, pointC) {
+  const [x1, y1] = [pointA.x, pointA.y];
+  const [x2, y2] = [pointB.x, pointB.y];
+  const [x3, y3] = [pointC.x, pointC.y];
 
-const getMidPoint = function(pointA, pointB) {
-  return { x: (pointA.x + pointB.x) / 2, y: (pointA.y + pointB.y) / 2 };
+  return x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) == 0;
 };
 
 const getCoordinates = function(line, ratioOfDistanceToLength) {
@@ -27,22 +27,29 @@ class Line {
     return `[Line (${this.pointA.x},${this.pointA.y}) to (${this.pointB.x},${this.pointB.y})]`;
   }
   isEqualTo(other) {
+    if (!(other instanceof Line)) return false;
     return (
-      arePointsEqual(this.pointA, other.pointA) &&
-      arePointsEqual(this.pointB, other.pointB)
+      arePointsCollinear(this.pointA, this.pointB, other.pointA) &&
+      arePointsCollinear(this.pointA, this.pointB, other.pointA)
     );
   }
   get length() {
     return this.pointA.findDistanceTo(this.pointB);
   }
   isParallelTo(other) {
+    if (arePointsCollinear(this.pointA, this.pointB, other.pointA)) {
+      return false;
+    }
     return this.slope == other.slope;
   }
   get slope() {
     return (this.pointB.y - this.pointA.y) / (this.pointB.x - this.pointA.x);
   }
   split() {
-    const midPoint = getMidPoint(this.pointA, this.pointB);
+    const midPoint = {
+      x: (this.pointA.x + this.pointB.x) / 2,
+      y: (this.pointA.y + this.pointB.y) / 2
+    };
     return [new Line(this.pointA, midPoint), new Line(midPoint, this.pointB)];
   }
   hasPoint(point) {

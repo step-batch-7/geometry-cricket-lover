@@ -21,11 +21,26 @@ describe("Line", function() {
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       assert.isFalse(line1.isEqualTo(line2));
     });
+    it("should give false for two lines of different instances", function() {
+      const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
+      const line2 = { pointA: { x: 1, y: 2 }, pointB: { x: 3, y: 4 } };
+      assert.isFalse(line1.isEqualTo(line2));
+    });
   });
   describe("length", function() {
-    it("should give the length of the line with the given two points", function() {
-      const line = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
-      const expected = Math.sqrt(5);
+    it("should give the length of the line when two positive points are given", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 5, y: 1 });
+      const expected = 4;
+      assert.strictEqual(line.length, expected);
+    });
+    it("should give the length of the line when two negative points are given", function() {
+      const line = new Line({ x: -1, y: -1 }, { x: -5, y: -1 });
+      const expected = 4;
+      assert.strictEqual(line.length, expected);
+    });
+    it("should give the length of the line when one positive and one negative point is given", function() {
+      const line = new Line({ x: -1, y: 1 }, { x: 5, y: 1 });
+      const expected = 6;
       assert.strictEqual(line.length, expected);
     });
   });
@@ -37,7 +52,17 @@ describe("Line", function() {
     });
     it("should not validate when given two lines are not parallel", function() {
       const line1 = new Line({ x: 1, y: 2 }, { x: 3, y: 3 });
-      const line2 = new Line({ x: 4, y: 4 }, { x: 6, y: 6 });
+      const line2 = new Line({ x: 2, y: 3 }, { x: 5, y: 6 });
+      assert.isFalse(line1.isParallelTo(line2));
+    });
+    it("should not validate when given two lines are collinear", function() {
+      const line1 = new Line({ x: 1, y: 1 }, { x: 4, y: 4 });
+      const line2 = new Line({ x: 3, y: 3 }, { x: 6, y: 6 });
+      assert.isFalse(line1.isParallelTo(line2));
+    });
+    it("should not validate when given two lines are equal", function() {
+      const line1 = new Line({ x: 1, y: 2 }, { x: 4, y: 10 });
+      const line2 = new Line({ x: 1, y: 2 }, { x: 4, y: 10 });
       assert.isFalse(line1.isParallelTo(line2));
     });
   });
