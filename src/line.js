@@ -8,6 +8,16 @@ const getMidPoint = function(pointA, pointB) {
   return { x: (pointA.x + pointB.x) / 2, y: (pointA.y + pointB.y) / 2 };
 };
 
+const getCoordinates = function(line, ratioOfDistanceToLength) {
+  const x =
+    (1 - ratioOfDistanceToLength) * line.pointA.x +
+    ratioOfDistanceToLength * line.pointB.x;
+  const y =
+    (1 - ratioOfDistanceToLength) * line.pointA.y +
+    ratioOfDistanceToLength * line.pointB.y;
+  return [x, y];
+};
+
 class Line {
   constructor(pointA, pointB) {
     this.pointA = new Point(pointA.x, pointA.y);
@@ -52,6 +62,15 @@ class Line {
     const y = (x - this.pointA.x) * this.slope + this.pointA.y;
     if (this.hasPoint(new Point(x, y))) return y;
     return NaN;
+  }
+  findPointFromStart(distance) {
+    const ratioOfDistanceToLength = distance / this.length;
+    if (ratioOfDistanceToLength < 0 || ratioOfDistanceToLength > 1) return NaN;
+    const [x, y] = getCoordinates(this, ratioOfDistanceToLength);
+    return new Point(x, y);
+  }
+  findPointFromEnd(distance) {
+    return this.findPointFromStart(this.length - distance);
   }
 }
 

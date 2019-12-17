@@ -32,7 +32,7 @@ describe("Line", function() {
   describe("isParallelTo", function() {
     it("should validate when given two lines are parallel", function() {
       const line1 = new Line({ x: 1, y: 1 }, { x: 3, y: 3 });
-      const line2 = new Line({ x: 2, y: 2 }, { x: 6, y: 6 });
+      const line2 = new Line({ x: 2, y: 1 }, { x: 6, y: 5 });
       assert.isTrue(line1.isParallelTo(line2));
     });
     it("should not validate when given two lines are not parallel", function() {
@@ -99,6 +99,34 @@ describe("Line", function() {
     it("should give the NaN for given x outside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
       assert.isNaN(line.findY(6));
+    });
+  });
+  describe("findPointFromStart", function() {
+    it("should give a point on the line with a given distance from start", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 6, y: 1 });
+      const expected = new Point(3, 1);
+      const actual = line.findPointFromStart(2);
+      assert.isOk(actual.isEqualTo(expected));
+    });
+    it("should give a point on the line with a given distance from start", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 6, y: 1 });
+      const expected = NaN;
+      const actual = line.findPointFromStart(7);
+      assert.deepStrictEqual(actual, expected);
+    });
+  });
+  describe("findPointFromEnd", function() {
+    it("should give a point on the line with a given distance from end", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 5, y: 1 });
+      const expected = new Point(3, 1);
+      const actual = line.findPointFromEnd(2);
+      assert.isOk(actual.isEqualTo(expected));
+    });
+    it("should give a point on the line with a given distance from end", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 5, y: 1 });
+      const expected = NaN;
+      const actual = line.findPointFromEnd(7);
+      assert.deepStrictEqual(actual, expected);
     });
   });
 });
