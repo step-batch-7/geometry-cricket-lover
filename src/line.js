@@ -22,7 +22,7 @@ class Line {
       arePointsEqual(this.pointB, other.pointB)
     );
   }
-  length() {
+  get length() {
     const differenceInX = this.pointB.x - this.pointA.x;
     const differenceInY = this.pointB.y - this.pointA.y;
     return Math.sqrt(
@@ -35,6 +35,9 @@ class Line {
   get slope() {
     return (this.pointB.y - this.pointA.y) / (this.pointB.x - this.pointA.x);
   }
+  findX(y) {
+    return;
+  }
   split() {
     const midPoint = getMidPoint(this.pointA, this.pointB);
     return [new Line(this.pointA, midPoint), new Line(midPoint, this.pointB)];
@@ -43,7 +46,7 @@ class Line {
     if (!point instanceof Point) return false;
     const line1 = new Line(this.pointA, point);
     const line2 = new Line(point, this.pointB);
-    return line1.length() + line2.length() == this.length();
+    return line1.length + line2.length == this.length;
   }
 }
 
