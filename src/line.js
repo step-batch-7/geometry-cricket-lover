@@ -63,13 +63,16 @@ class Line {
   }
   findX(y) {
     const x = (y - this.endA.y) / this.slope + this.endA.x;
-    if (this.hasPoint(new Point(x, y))) return x;
-    return NaN;
+
+    if (y == this.endA.y) return this.endA.x;
+    if (!this.hasPoint(new Point(x, y))) return NaN;
+    return x;
   }
   findY(x) {
     const y = (x - this.endA.x) * this.slope + this.endA.y;
-    if (this.hasPoint(new Point(x, y))) return y;
-    return NaN;
+    if (x == this.endA.x) return this.endA.y;
+    if (!this.hasPoint(new Point(x, y))) return NaN;
+    return y;
   }
   findPointFromStart(distance) {
     const ratioOfDistanceToLength = distance / this.length;

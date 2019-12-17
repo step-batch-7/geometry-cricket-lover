@@ -151,9 +151,18 @@ describe("Line", function() {
       const expected = 1.5;
       assert.strictEqual(line.findX(2.5), expected);
     });
+    it("should give the corresponding x when both y values are equal", function() {
+      const line = new Line({ x: 1, y: 8 }, { x: 6, y: 8 });
+      const expected = 1;
+      assert.strictEqual(line.findX(8), expected);
+    });
     it("should give the NaN for given y outside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
       assert.isNaN(line.findX(6));
+    });
+    it("should give x value of endPoint for given y value of endPoint", function() {
+      const line = new Line({ x: 1, y: 4 }, { x: 3, y: 7 });
+      assert.strictEqual(line.findX(7), 3);
     });
   });
   describe("findY", function() {
@@ -162,9 +171,18 @@ describe("Line", function() {
       const expected = 2.5;
       assert.strictEqual(line.findY(1.5), expected);
     });
+    it("should give the corresponding y when both x values are equal", function() {
+      const line = new Line({ x: 1, y: 4 }, { x: 1, y: 8 });
+      const expected = 4;
+      assert.strictEqual(line.findY(1), expected);
+    });
     it("should give the NaN for given x outside the line", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 3, y: 4 });
       assert.isNaN(line.findY(6));
+    });
+    it("should give y value of endPoint for given x value of endPoint", function() {
+      const line = new Line({ x: 1, y: 1 }, { x: 3, y: 2 });
+      assert.strictEqual(line.findY(3), 2);
     });
   });
   describe("findPointFromStart", function() {
@@ -174,6 +192,16 @@ describe("Line", function() {
       const actual = line.findPointFromStart(3);
 
       assert.isOk(actual.isEqualTo(expected));
+    });
+    it("should give start point of line for distance 0", function() {
+      const line = new Line({ x: 0, y: 1 }, { x: 0, y: 11 });
+      const point = new Point(0, 1);
+      assert.deepStrictEqual(line.findPointFromStart(0), point);
+    });
+    it("should give end point of line for distance equal to its length", function() {
+      const line = new Line({ x: 0, y: 1 }, { x: 0, y: 11 });
+      const point = new Point(0, 11);
+      assert.deepStrictEqual(line.findPointFromStart(10), point);
     });
     it("should give null for the point of different instance", function() {
       const line = new Line({ x: 1, y: 1 }, { x: 6, y: 1 });
@@ -188,6 +216,16 @@ describe("Line", function() {
       const expected = new Point(3, 1);
       const actual = line.findPointFromEnd(2);
       assert.isOk(actual.isEqualTo(expected));
+    });
+    it("should give end point of line for distance 0", function() {
+      const line = new Line({ x: 0, y: 1 }, { x: 0, y: 11 });
+      const point = new Point(0, 11);
+      assert.deepStrictEqual(line.findPointFromEnd(0), point);
+    });
+    it("should give start point of line for distance equal to its length", function() {
+      const line = new Line({ x: 0, y: 1 }, { x: 0, y: 11 });
+      const point = new Point(0, 1);
+      assert.deepStrictEqual(line.findPointFromEnd(10), point);
     });
     it("should give null for the point of different instance", function() {
       const line = new Line({ x: 1, y: 1 }, { x: 5, y: 1 });
