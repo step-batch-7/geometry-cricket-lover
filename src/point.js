@@ -15,6 +15,9 @@ class Point {
   clone() {
     return new Point(this.x, this.y);
   }
+  isOn(line) {
+    return line.hasPoint(this);
+  }
 }
 
 module.exports = Point;

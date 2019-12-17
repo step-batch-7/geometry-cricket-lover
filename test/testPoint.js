@@ -1,5 +1,6 @@
 const assert = require("chai").assert;
 const Point = require("../src/point");
+const Line = require("../src/line");
 
 describe("Point", function() {
   describe("toString", function() {
@@ -43,6 +44,13 @@ describe("Point", function() {
     it("should create a copy and give back the same point given to it", function() {
       const point = new Point(2, 3);
       assert.isOk(point.isEqualTo(point.clone()));
+    });
+  });
+  describe("isOn", function() {
+    it("should validate if the point is present on the given line", function() {
+      const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const point = new Point(2, 3);
+      assert.isTrue(point.isOn(line));
     });
   });
 });
