@@ -80,4 +80,24 @@ describe("Circle", function() {
       assert.isOk(expected.isEqualTo(actual));
     });
   });
+  describe("covers", function() {
+    it("should validate when the point is inside the circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(-2, 0);
+      const actual = circle.covers(point);
+      assert.isTrue(actual);
+    });
+    it("should not validate when the point is outside the circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(-7, 0);
+      const actual = circle.covers(point);
+      assert.isFalse(actual);
+    });
+    it("should not validate when the given point is of different instance", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = { x: -5, y: 0 };
+      const actual = circle.covers(point);
+      assert.isFalse(actual);
+    });
+  });
 });
