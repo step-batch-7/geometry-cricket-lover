@@ -9,7 +9,7 @@ describe("Circle", function() {
       assert.strictEqual(circle.toString(), expected);
     });
   });
-  describe.only("isEqualTo", function() {
+  describe("isEqualTo", function() {
     it("should validate when the the given circles are at same location and of same size", function() {
       const circle1 = new Circle({ x: 0, y: 0 }, 5);
       const circle2 = new Circle({ x: 0, y: 0 }, 5);
