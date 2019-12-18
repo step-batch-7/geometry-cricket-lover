@@ -31,4 +31,14 @@ describe("Circle", function() {
       assert.isFalse(circle1.isEqualTo(circle2));
     });
   });
+  describe("area", function() {
+    it("should give the area of given circle", function() {
+      const circle = new Circle({ x: 2, y: 3 }, 7);
+      assert.approximately(circle.area, 154, 0.1);
+    });
+    it("should give 0 for circle of radius zero", function() {
+      const circle = new Circle({ x: 2, y: 3 }, 0);
+      assert.strictEqual(circle.area, 0);
+    });
+  });
 });
