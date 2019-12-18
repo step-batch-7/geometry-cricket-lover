@@ -72,4 +72,12 @@ describe("Circle", function() {
       assert.isFalse(actual);
     });
   });
+  describe("moveTo", function() {
+    it("should give a new circle of same dimensions at given point", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const expected = new Circle({ x: 2, y: 3 }, 5);
+      const actual = circle.moveTo({ x: 2, y: 3 });
+      assert.isOk(expected.isEqualTo(actual));
+    });
+  });
 });
