@@ -1,4 +1,5 @@
 const assert = require("chai").assert;
+const Point = require("../src/point");
 const Circle = require("../src/circle");
 
 describe("Circle", function() {
@@ -49,6 +50,26 @@ describe("Circle", function() {
     it("should give 0 as perimeter for circle of radius zero", function() {
       const circle = new Circle({ x: 2, y: 3 }, 0);
       assert.strictEqual(circle.perimeter, 0);
+    });
+  });
+  describe("hasPoint", function() {
+    it("should validate if the given point is present on the circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(-5, 0);
+      const actual = circle.hasPoint(point);
+      assert.isTrue(actual);
+    });
+    it("should not validate if the given point is not present on the circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(2, 3);
+      const actual = circle.hasPoint(point);
+      assert.isFalse(actual);
+    });
+    it("should not validate if the given point is of different instance", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = { x: -5, y: 0 };
+      const actual = circle.hasPoint(point);
+      assert.isFalse(actual);
     });
   });
 });
