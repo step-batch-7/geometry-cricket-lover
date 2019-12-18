@@ -15,6 +15,11 @@ class Rectangle {
     const breadth = this.vertexA.findDistanceTo(this.vertexB);
     return length * breadth;
   }
+  get perimeter() {
+    const length = this.vertexB.findDistanceTo(this.vertexC);
+    const breadth = this.vertexA.findDistanceTo(this.vertexB);
+    return 2 * (length + breadth);
+  }
 }
 
 module.exports = Rectangle;
