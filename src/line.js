@@ -53,12 +53,12 @@ class Line {
     };
     return [new Line(this.endA, midPoint), new Line(midPoint, this.endB)];
   }
-  hasPoint(point) {
-    if (!(point instanceof Point)) {
+  hasPoint(other) {
+    if (!(other instanceof Point)) {
       return false;
     }
-    const line1 = new Line(this.endA, point);
-    const line2 = new Line(point, this.endB);
+    const line1 = new Line(this.endA, other);
+    const line2 = new Line(other, this.endB);
     return line1.length + line2.length == this.length;
   }
   findX(y) {

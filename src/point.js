@@ -9,9 +9,9 @@ class Point {
   visit(functionReference) {
     return functionReference(this.x, this.y);
   }
-  isEqualTo(pointB) {
-    if (!(pointB instanceof Point)) return false;
-    return this.x == pointB.x && this.y == pointB.y;
+  isEqualTo(other) {
+    if (!(other instanceof Point)) return false;
+    return this.x == other.x && this.y == other.y;
   }
   clone() {
     return new Point(this.x, this.y);

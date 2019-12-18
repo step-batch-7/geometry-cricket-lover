@@ -9,4 +9,26 @@ describe("Circle", function() {
       assert.strictEqual(circle.toString(), expected);
     });
   });
+  describe.only("isEqualTo", function() {
+    it("should validate when the the given circles are at same location and of same size", function() {
+      const circle1 = new Circle({ x: 0, y: 0 }, 5);
+      const circle2 = new Circle({ x: 0, y: 0 }, 5);
+      assert.isTrue(circle1.isEqualTo(circle2));
+    });
+    it("should not validate when the the given circles are at same location but not of same size", function() {
+      const circle1 = new Circle({ x: 3, y: 2 }, 5);
+      const circle2 = new Circle({ x: 3, y: 2 }, 4);
+      assert.isFalse(circle1.isEqualTo(circle2));
+    });
+    it("should not validate when the the given circles are not at same location but of same size", function() {
+      const circle1 = new Circle({ x: 2, y: 3 }, 5);
+      const circle2 = new Circle({ x: 3, y: 2 }, 5);
+      assert.isFalse(circle1.isEqualTo(circle2));
+    });
+    it("should not validate for circles of different instance", function() {
+      const circle1 = new Circle({ x: 0, y: 0 }, 5);
+      const circle2 = ({ x: 4, y: 5 }, 5);
+      assert.isFalse(circle1.isEqualTo(circle2));
+    });
+  });
 });
