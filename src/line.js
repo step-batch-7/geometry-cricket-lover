@@ -31,13 +31,14 @@ class Line {
     if (!(other instanceof Line)) return false;
     return (
       arePointsCollinear(this.endA, this.endB, other.endA) &&
-      arePointsCollinear(this.endA, this.endB, other.endA)
+      arePointsCollinear(this.endA, this.endB, other.endB)
     );
   }
   get length() {
     return this.endA.findDistanceTo(this.endB);
   }
   isParallelTo(other) {
+    if (!(other instanceof Line)) return false;
     if (arePointsCollinear(this.endA, this.endB, other.endA)) {
       return false;
     }

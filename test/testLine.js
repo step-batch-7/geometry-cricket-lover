@@ -16,6 +16,11 @@ describe("Line", function() {
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       assert.isTrue(line1.isEqualTo(line2));
     });
+    it("should not validate when given end points of lines are not equal", function() {
+      const line1 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
+      const line2 = new Line({ x: 1, y: 2 }, { x: 7, y: 3 });
+      assert.isFalse(line1.isEqualTo(line2));
+    });
     it("should not validate when given two lines are not equal", function() {
       const line1 = new Line({ x: 1, y: 1 }, { x: 2, y: 3 });
       const line2 = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
