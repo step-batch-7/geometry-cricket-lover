@@ -20,6 +20,16 @@ class Rectangle {
     const breadth = this.vertexA.findDistanceTo(this.vertexB);
     return 2 * (length + breadth);
   }
+  isEqualTo(other) {
+    if (!(other instanceof Rectangle)) return false;
+
+    return (
+      this.vertexA.isEqualTo(other.vertexA) &&
+      this.vertexB.isEqualTo(other.vertexB) &&
+      this.vertexC.isEqualTo(other.vertexC) &&
+      this.vertexD.isEqualTo(other.vertexD)
+    );
+  }
 }
 
 module.exports = Rectangle;

@@ -1,5 +1,5 @@
 const assert = require("chai").assert;
-const Line = require("../src/line");
+const rectangle = require("../src/rectangle");
 const Rectangle = require("../src/rectangle");
 
 describe("rectangle", function() {
@@ -20,6 +20,23 @@ describe("rectangle", function() {
     it("should give the perimeter of given rectangle", function() {
       const rectangle = new Rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
       assert.strictEqual(rectangle.perimeter, 20);
+    });
+  });
+  describe("isEqualTo", function() {
+    it("should validate when given two rectangles are equal", function() {
+      const rectangle1 = new Rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
+      const rectangle2 = new Rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
+      assert.isTrue(rectangle1.isEqualTo(rectangle2));
+    });
+    it("should not validate when the given rectangles are not equal", function() {
+      const rectangle1 = new rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
+      const rectangle2 = new rectangle({ x: 0, y: 1 }, { x: 2, y: 5 });
+      assert.isFalse(rectangle1.isEqualTo(rectangle2));
+    });
+    it("should not validate for two rectangles of different instances", function() {
+      const rectangle1 = new rectangle({ x: 1, y: 2 }, { x: 3, y: 4 });
+      const rectangle2 = { endA: { x: 1, y: 2 }, endB: { x: 3, y: 4 } };
+      assert.isFalse(rectangle1.isEqualTo(rectangle2));
     });
   });
 });
