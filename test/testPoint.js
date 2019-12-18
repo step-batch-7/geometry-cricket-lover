@@ -1,6 +1,7 @@
 const assert = require("chai").assert;
 const Point = require("../src/point");
 const Line = require("../src/line");
+const Circle = require("../src/circle");
 
 describe("Point", function() {
   describe("toString", function() {
@@ -61,6 +62,16 @@ describe("Point", function() {
       const line = new Line({ x: 1, y: 2 }, { x: 2, y: 3 });
       const point = new Point(2, 4);
       assert.isFalse(point.isOn(line));
+    });
+    it("should validate if the pont is on circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(-5, 0);
+      assert.isTrue(point.isOn(circle));
+    });
+    it("should validate if the pont is on circle", function() {
+      const circle = new Circle({ x: 0, y: 0 }, 5);
+      const point = new Point(2, 3);
+      assert.isFalse(point.isOn(circle));
     });
   });
   describe("findDistanceTo", function() {
