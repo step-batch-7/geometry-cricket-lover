@@ -60,7 +60,7 @@ class Line {
     }
     const line1 = new Line(this.endA, other);
     const line2 = new Line(other, this.endB);
-    return line1.length + line2.length == this.length;
+    return +(line1.length + line2.length).toFixed(5) == +this.length.toFixed(5);
   }
   findX(y) {
     const x = (y - this.endA.y) / this.slope + this.endA.x;
