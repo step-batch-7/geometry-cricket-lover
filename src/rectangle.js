@@ -31,12 +31,11 @@ class Rectangle {
   }
   isEqualTo(other) {
     if (!(other instanceof Rectangle)) return false;
-
+    const diagonal1 = new Line(this.vertexA, this.vertexC);
+    const diagonal2 = new Line(this.vertexB, this.vertexD);
+    const otherDiagonal = new Line(other.vertexA, other.vertexC);
     return (
-      (this.vertexA.isEqualTo(other.vertexA) &&
-        this.vertexC.isEqualTo(other.vertexC)) ||
-      (this.vertexA.isEqualTo(other.vertexC) &&
-        this.vertexC.isEqualTo(other.vertexA))
+      diagonal1.isEqualTo(otherDiagonal) || diagonal2.isEqualTo(otherDiagonal)
     );
   }
   hasPoint(point) {
@@ -53,6 +52,12 @@ class Rectangle {
       cd.hasPoint(point) ||
       da.hasPoint(point)
     );
+  }
+  covers(other) {
+    if (!(other instanceof Point)) return false;
+    const [xMin, xMax] = [this.vertexA.x, this.vertexC.x].sort((a, b) => a - b);
+    const [yMin, yMax] = [this.vertexA.y, this.vertexC.y].sort((a, b) => a - b);
+    return other.x > xMin && other.x < xMax && other.y > yMin && other.y < yMax;
   }
 }
 

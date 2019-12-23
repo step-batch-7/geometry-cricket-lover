@@ -42,6 +42,8 @@ class Line {
     if (arePointsCollinear(this.endA, this.endB, other.endA)) {
       return false;
     }
+    if (Math.abs(this.slope) == Infinity && Math.abs(other.slope) == Infinity)
+      return true;
     return this.slope == other.slope;
   }
   get slope() {
@@ -79,6 +81,7 @@ class Line {
     const ratioOfDistanceToLength = distance / this.length;
     if (ratioOfDistanceToLength < 0 || ratioOfDistanceToLength > 1) return null;
     const [x, y] = getCoordinates(this, ratioOfDistanceToLength);
+    if (isNaN(x) || isNaN(y)) return null;
     return new Point(x, y);
   }
   findPointFromEnd(distance) {

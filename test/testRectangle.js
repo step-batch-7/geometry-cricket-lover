@@ -66,4 +66,16 @@ describe("rectangle", function() {
       const point = { x: 0, y: 0 };
     });
   });
+  describe.only("covers", function() {
+    it("should validate when a given point inside the rectangle", function() {
+      const rectangle = new Rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
+      const point = new Point(2, 3);
+      assert.isTrue(rectangle.covers(point));
+    });
+    it("should not validate when a given point inside the rectangle", function() {
+      const rectangle = new Rectangle({ x: 0, y: 4 }, { x: 6, y: 0 });
+      const point = new Point(0, -1);
+      assert.isFalse(rectangle.covers(point));
+    });
+  });
 });
